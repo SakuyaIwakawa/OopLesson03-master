@@ -11,8 +11,11 @@ namespace Chapter3
         static void Main(string[] args)
         {
             var numbers = new List<int> { 12, 87, 94, 14, 53, 20, 40, 35, 76, 91, 31, 17, 48 };
-
-            numbers.ForEach(n => Console.WriteLine(n / 2.0));
+            var nums = numbers.Where(x => x >= 50);
+            foreach(var item in nums)
+            {
+                Console.WriteLine(item);
+            }
         }
     }
 }
