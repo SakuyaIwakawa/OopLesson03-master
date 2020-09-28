@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +11,38 @@ namespace Chapter3
     {
         static void Main(string[] args)
         {
-            var numbers = new List<int> { 12, 87, 94, 14, 53, 20, 40, 35, 76, 91, 31, 17, 48 };
-            var exist = numbers.Exists(n => n % 8 == 0 || n % 9 == 0);
-            if (exist)
-                Console.WriteLine("存在しています");
-            else
-                Console.WriteLine("存在していません");
+            var names = new List<string> { "Tokyo", "New Delhi", "Bangkok", "London", "Paris", "Berlin", "Canberra", "HongKong" };
 
-            numbers.ForEach(n => Console.WriteLine(n / 2.0));
+            //3-2-1
+            do
+            {
+                Console.WriteLine("都市名を入力。空行で終了");
+                var line = Console.ReadLine();
+                if (string.IsNullOrEmpty(line))
+                {
+                    break;
+                }
+                var index = names.FindIndex(s => s == line);
+                Console.WriteLine(index);
+            } while (true);
 
-            numbers.Where(x => x >= 50).ToList().ForEach(Console.WriteLine);
+            //3-2-2
+            var count = names.Count(s => s.Contains('o'));
+            Console.WriteLine(count);
 
-            numbers.Select(x => x * 2).ToList().ForEach(Console.WriteLine);
+            //3-2-3
+            var selected = names.Where(s => s.Contains('o')).ToList();
+            foreach(var name in selected)
+            {
+                Console.WriteLine(name);
+            }
+
+            //3-2-4
+            var nameCounts = names.Where(s => s.StartsWith("B")).Select(s => s.Length);
+            foreach(var length in nameCounts)
+            {
+                Console.WriteLine(length);
+            }
         }
     }
 }
