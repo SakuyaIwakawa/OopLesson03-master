@@ -10,6 +10,20 @@ namespace Chapter4
     {
         static void Main(string[] args)
         {
+            string code = "12345";
+
+            var message = GetMessage(code) ?? DefaultMessage();
+            Console.WriteLine(message);
+        }
+
+        private static object DefaultMessage()
+        {
+            return "DefaulteMessage";
+        }
+
+        private static object GetMessage(string code)
+        {
+            return 12345;
         }
     }
 }
