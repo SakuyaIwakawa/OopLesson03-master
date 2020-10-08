@@ -12,43 +12,41 @@ namespace Chapter6
     {
         static void Main(string[] args)
         {
-            var numbers = new List<int> { 9, 7, -5, 4, 2, 5, 4, 2, -4, 8, -1, 6, 4 };
-            Console.WriteLine($"平均値：{numbers.Average()}");
-            Console.WriteLine($"合計値{numbers.Sum()}");
-            Console.WriteLine($"最小値{numbers.Where(n => n > 0).Min()}");
-            Console.WriteLine($"最大値{numbers.Max()}");
+            var numbers = new List<int> { 19, 17, 15, 24, 12, 25, 14, 20, 12, 28, 19, 30, 24 };
 
-            bool exists = numbers.Any(n => n % 7 == 0);
+            var strings = numbers.Select(n => n.ToString("0000")).ToArray();
 
+            foreach(var str in strings)
+            {
+                Console.Write(str + " ");
+            }
 
+            var sortedNumbers = numbers.OrderBy(n => n);
+            foreach(var nums in sortedNumbers)
+            {
+                Console.WriteLine(nums + " ");
+            }
+
+            var words = new List<string>
+            {
+                "Microsoft","Apple","Google","Oracle","Facebook"
+            };
+
+            var lower = words.Select(name => name.ToLower()).ToArray();
 
             var books = Books.GetBooks();
-            Console.WriteLine($"本の平均価格：{books.Average(x => x.Price)}");
-            Console.WriteLine($"本の合計価格：{books.Sum(x => x.Price)}");
-            Console.WriteLine($"本のページが最大：{books.Max(x => x.Pages)}");
-            Console.WriteLine($"高価な本：{books.Max(x => x.Price)}");
-            Console.WriteLine($"タイトルに「物語」が入っている作品：{books.Where(x => x.Title.Contains("物語"))}");
 
-            Console.WriteLine("600ページを超える作品は");
-            Console.WriteLine(books.Any(x => x.Pages >= 600) ? "ある" : "ない");
-
-            Console.WriteLine("すべて200ページ以上の作品であるか");
-            Console.WriteLine(books.All(x => x.Pages >= 200) ? "ある" : "ない");
-
-            var book = books.FirstOrDefault(x => x.Pages > 400);
-            int i;
-            for(i = 0; i < books.Count; i++)
+            var titles = books.Select(name => name.Title);
+            foreach(var title in titles)
             {
-                if (books[i].Title.Contains(book.Title))
-                {
-                    break;
-                }
+                Console.Write(title + " ");
             }
-            Console.WriteLine($"400ページを超える本は{book}冊目です");
 
-            var count = books.FindIndex(x => x.Pages > 400);
-            Console.WriteLine($"400ページを超える本は{count + 1}冊目です");
-
+            var sortedBooks = books.OrderBy(book => book.Pages).Take(3);
+            foreach (var book in sortedBooks)
+            {
+                Console.WriteLine(book.Title + " " + book.Pages);
+            }
         }
     }
 }
