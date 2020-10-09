@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Chapter6
@@ -12,41 +13,38 @@ namespace Chapter6
     {
         static void Main(string[] args)
         {
-            var numbers = new List<int> { 19, 17, 15, 24, 12, 25, 14, 20, 12, 28, 19, 30, 24 };
+            var numbers = new int[] { 5, 10, 17, 9, 3, 21, 10, 40, 21, 3, 35 };
 
-            var strings = numbers.Select(n => n.ToString("0000")).ToArray();
+            //6-1-1
+            Console.WriteLine($"最大値{numbers.Max()}");
 
-            foreach(var str in strings)
+            //6-1-2
+            int pos = numbers.Length - 2;
+            
+            foreach (var number in numbers.Skip(pos))
             {
-                Console.Write(str + " ");
+                Console.Write(number + " ");
+            }
+            Console.WriteLine();
+
+            //6-1-3
+            var strNums = numbers.Select(n => n.ToString());
+            foreach(var str in strNums)
+            {
+                Console.WriteLine(str + " ");
             }
 
-            var sortedNumbers = numbers.OrderBy(n => n);
-            foreach(var nums in sortedNumbers)
+            //6-1-4
+            foreach(var number in numbers.OrderBy(n => n).Take(3))
             {
-                Console.WriteLine(nums + " ");
+                Console.Write(number + " ");
             }
+            Console.WriteLine();
 
-            var words = new List<string>
-            {
-                "Microsoft","Apple","Google","Oracle","Facebook"
-            };
+            //6-1-5
+            Console.WriteLine(numbers.Distinct().Count(n => n > 10));
 
-            var lower = words.Select(name => name.ToLower()).ToArray();
 
-            var books = Books.GetBooks();
-
-            var titles = books.Select(name => name.Title);
-            foreach(var title in titles)
-            {
-                Console.Write(title + " ");
-            }
-
-            var sortedBooks = books.OrderBy(book => book.Pages).Take(3);
-            foreach (var book in sortedBooks)
-            {
-                Console.WriteLine(book.Title + " " + book.Pages);
-            }
         }
     }
 }
