@@ -23,6 +23,18 @@ namespace Chapter6
    new Book { Title = "楽しいC#プログラミング教室", Price = 2540, Pages = 348 },
             };
 
+            int count1 = 0;
+            foreach(var book in books.Where(b => b.Title.Contains("C#")))
+            {
+                for(int i = 0; i < book.Title.Length -1; i++)
+                {
+                    if((book.Title[i] == 'C') && (book.Title[i + 1] == '#'))
+                    {
+                        count1++;
+                    }
+                }
+            }
+
             //6-2-1
             var book1 = books.FirstOrDefault(b => b.Title == "ワンダフル・C#ライフ");
             if(book1 != null)
@@ -31,8 +43,8 @@ namespace Chapter6
             }
 
             //6-2-2
-            int count = books.Count(b => b.Title.Contains("C#"));
-            Console.WriteLine(count);
+            int count2 = books.Count(b => b.Title.Contains("C#"));
+            Console.WriteLine(count2);
 
             //6-2-3
             var average = books.Where(b => b.Title.Contains("C#")).Average(b => b.Pages);
