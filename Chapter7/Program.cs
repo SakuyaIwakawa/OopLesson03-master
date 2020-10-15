@@ -11,17 +11,44 @@ namespace Chapter7
     {
         static void Main(string[] args)
         {
-            var employeeDict = new Dictionary<int, Employee>
-            {
-                {100,new Employee(100,"清水遼久") },
-                {112,new Employee(112,"芹沢洋和") },
-                {125,new Employee(125,"岩瀬奈央子") },
-            };
+            Console.WriteLine("*****辞書登録プログラム*****");
 
-            var employees = employeeDict.Where(emp => emp.Value.Id % 2 == 0);
-            foreach(var item in employees)
+            var dict = new Dictionary<string, List<string>>();
+            //{
+            // {"PC", new List<string>{"パーソナル　コンピュータ","プログラム　カウンタ",} },
+            // {"CD", new List<string>{"コンパクト　ディスク","キャッシュ　ディスペンサー"} }
+            //};
+
+            for (int i = 0; i < 100; i++)
             {
-                Console.WriteLine($"{item.Value.Name}");
+            Console.WriteLine("1.登録 2.内容を表示 3.終了");
+            int n = int.Parse(Console.ReadLine());
+                if (n == 1)
+                {
+                    Console.Write("KEYを入力:");
+                    string key = Console.ReadLine();
+                    Console.Write("VALUEを入力:");
+                    string value = Console.ReadLine();
+                    Console.WriteLine("登録しました");
+
+                    if (dict.ContainsKey(key))
+                    {
+                        dict[key].Add(value);
+                    }
+                    else
+                    {
+                        dict[key] = new List<string> { value };
+
+                        foreach(var item in dict)
+                        {
+                            foreach(var term in dict)
+                            {
+                                Console.WriteLine("{0}:{1}", item.Key, term);
+                            }
+                        }
+                    }
+                }
+                i = 500;
             }
         }
     }
