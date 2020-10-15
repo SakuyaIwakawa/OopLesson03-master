@@ -11,7 +11,9 @@ namespace Chapter7
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("*****辞書登録プログラム*****");
+            Console.WriteLine("********************");
+            Console.WriteLine("*辞書登録プログラム*");
+            Console.WriteLine("********************");
 
             var dict = new Dictionary<string, List<string>>();
             //{
