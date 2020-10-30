@@ -21,7 +21,7 @@ namespace Chapter7
             // {"CD", new List<string>{"コンパクト　ディスク","キャッシュ　ディスペンサー"} }
             //};
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 Console.WriteLine("1.登録 2.内容を表示 3.終了");
                 int n = int.Parse(Console.ReadLine());
@@ -51,7 +51,7 @@ namespace Chapter7
                             Console.WriteLine("{0} : {1}", item.Key, term);
                         }
                     }
-                    i = 500;
+                    i = 5000;
                 }
             }
         }
