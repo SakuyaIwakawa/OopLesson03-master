@@ -42,7 +42,7 @@ namespace Chapter5
             //5-3-1
             string text = "Jackdaws love my big sphinx of quartz";
             var count1 = text.Count(s => s == ' ');
-            Console.WriteLine($"空白数:{0}",count );
+            //Console.WriteLine($"空白数:{0}",count );
 
             //5-3-2
             var replaced = text.Replace("big", "small");
