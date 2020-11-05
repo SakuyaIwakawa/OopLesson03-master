@@ -47,6 +47,12 @@ namespace SendMailApp
             {
                 MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
 
+                if(tbCc.Text != "")
+                msg.CC.Add(tbCc.Text);
+
+                if(tbBcc.Text != "")
+                msg.Bcc.Add(tbBcc.Text);
+
                 msg.Subject = tbTitle.Text;
                 msg.Body = tbBody.Text;
 
