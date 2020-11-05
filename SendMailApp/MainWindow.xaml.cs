@@ -22,9 +22,23 @@ namespace SendMailApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        SmtpClient sc = new SmtpClient();
         public MainWindow()
         {
             InitializeComponent();
+            sc.SendCompleted += Sc_SendCompleted;
+        }
+
+        private void Sc_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                MessageBox.Show("送信はキャンセルされました。");
+            }
+            else
+            {
+                MessageBox.Show("送信完了！");
+            }
         }
 
         private void btOk_Click(object sender, RoutedEventArgs e)
@@ -36,13 +50,13 @@ namespace SendMailApp
                 msg.Subject = tbTitle.Text;
                 msg.Body = tbBody.Text;
 
-                SmtpClient sc = new SmtpClient();
                 sc.Host = "smtp.gmail.com";
                 sc.Port = 587;
                 sc.EnableSsl = true;
                 sc.Credentials = new NetworkCredential("ojsinfosys01@gmail.com", "ojsInfosys2020");
 
-                sc.Send(msg);
+                sc.SendMailAsync(msg);
+                //sc.Send(msg);
             }
             catch (Exception ex)
             {
@@ -52,7 +66,7 @@ namespace SendMailApp
 
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
-
+            sc.SendAsyncCancel();
         }
     }
 }
