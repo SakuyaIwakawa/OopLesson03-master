@@ -40,5 +40,16 @@ namespace SendMailApp
             (Config.GetInstance()).UpdateStatus(tbSmtp.Text, tbUserName.Text,
                 tbPassWord.Password, int.Parse(tbPort.Text), cbSsl.IsChecked ?? false);
         }
+
+        private void btOk_Click(object sender, RoutedEventArgs e)
+        {
+            btApply_Click(sender, e);
+            this.Close();
+        }
+
+        private void btCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

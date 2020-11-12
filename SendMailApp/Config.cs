@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace SendMailApp
 {
     class Config
     {
-        private static Config Instance { get; set; }
+        private static Config instance;
 
         public string Smtp { get; set; }
         public string MailAddress { get; set; }
@@ -18,11 +21,11 @@ namespace SendMailApp
 
         public static Config GetInstance()
         {
-            if(Instance == null)
+            if(instance == null)
             {
-                Instance = new Config();
+                instance = new Config();
             }
-            return Instance;
+            return instance;
         }
 
         public Config getDefaultStatus()
@@ -55,6 +58,23 @@ namespace SendMailApp
             this.Ssl = Ssl;
 
             return true;
+        }
+        public void Serialise()
+        {
+            using (var writer = XmlWriter.Create("config.xml"))
+            {
+                var serializer = new XmlSerializer(instance.GetType());
+                serializer.Serialize(writer, instance);
+            }
+        }
+
+        public void DeSerialize()
+        {
+            using(var reader = XmlReader.Create(new StringReader("config.xml")))
+            {
+                var serializer = new XmlSerializer(typeof(Config));
+                instance = serializer.Deserialize(reader) as Config;
+            }
         }
     }
 }

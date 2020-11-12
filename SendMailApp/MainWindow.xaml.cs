@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -77,13 +78,41 @@ namespace SendMailApp
 
         private void btConfig_Click(object sender, RoutedEventArgs e)
         {
+            ConfigWindowShow();
+        }
+
+        private static void ConfigWindowShow()
+        {
             ConfigWindow configWindow = new ConfigWindow();
-            configWindow.ShowDialog();
+            configWindow.Show();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Config.GetInstance().DeSerialize();
+            }
+            catch (FileNotFoundException)
+            {
+                ConfigWindowShow();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                Config.GetInstance().Serialise();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
