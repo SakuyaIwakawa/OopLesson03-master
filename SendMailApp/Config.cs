@@ -51,11 +51,11 @@ namespace SendMailApp
         }
         public bool UpdateStatus(string smtp,string mailAddress,string passWord, int port, bool ssl)
         {
-            this.Smtp = Smtp;
-            this.Port = Port;
-            this.MailAddress = MailAddress;
-            this.PassWord = PassWord;
-            this.Ssl = Ssl;
+            this.Smtp = smtp;
+            this.Port = port;
+            this.MailAddress = mailAddress;
+            this.PassWord = passWord;
+            this.Ssl = ssl;
 
             return true;
         }
