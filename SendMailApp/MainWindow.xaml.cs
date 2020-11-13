@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -117,7 +118,12 @@ namespace SendMailApp
 
         private void addfileBT_Click(object sender, RoutedEventArgs e)
         {
+            var dialog = new OpenFileDialog();
 
+            if (dialog.ShowDialog() == true)
+            {
+                addfile.Items.Add(dialog.FileName);
+            }
         }
 
         private void deleteBT_Click(object sender, RoutedEventArgs e)
