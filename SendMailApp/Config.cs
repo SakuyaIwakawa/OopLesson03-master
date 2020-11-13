@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace SendMailApp
 {
-    class Config
+    public class Config
     {
         private static Config instance;
 
