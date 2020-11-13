@@ -114,5 +114,23 @@ namespace SendMailApp
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void addfileBT_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void deleteBT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int sel = addfile.SelectedIndex;
+                addfile.Items.RemoveAt(sel);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
