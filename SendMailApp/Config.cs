@@ -61,7 +61,7 @@ namespace SendMailApp
         }
         public void Serialise()
         {
-            using (var writer = XmlWriter.Create("config.xml"))
+            using (var writer = XmlWriter.Create(new StreamWriter("config.xml")))
             {
                 var serializer = new XmlSerializer(instance.GetType());
                 serializer.Serialize(writer, instance);
@@ -70,7 +70,7 @@ namespace SendMailApp
 
         public void DeSerialize()
         {
-            using(var reader = XmlReader.Create(new StringReader("config.xml")))
+            using(var reader = XmlReader.Create(new StreamReader("config.xml")))
             {
                 var serializer = new XmlSerializer(typeof(Config));
                 instance = serializer.Deserialize(reader) as Config;
