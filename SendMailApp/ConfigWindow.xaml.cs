@@ -46,10 +46,39 @@ namespace SendMailApp
             btApply_Click(sender, e);
             this.Close();
         }
-
+        bool ch = false;
         private void btCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (ch)
+            {
+                MessageBoxResult result = MessageBox.Show("変更が反映されていません","title",MessageBoxButton.OKCancel);
+                if(result == MessageBoxResult.OK)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                this.Close();
+            }
+        }
+
+        private void TextChanged(object sender, RoutedEventArgs e)
+        {
+            ch = true;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Config cf = Config.GetInstance();
+            tbSmtp.Text = cf.Smtp;
+            tbUserName.Text = cf.MailAddress;
+            tbPort.Text = cf.Port.ToString();
+            tbPassWord.Password = cf.PassWord;
+            tbSender.Text = cf.MailAddress;
+            cbSsl.IsChecked = cf.Ssl;
+
+            ch = false;
         }
     }
 }
