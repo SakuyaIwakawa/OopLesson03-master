@@ -58,6 +58,11 @@ namespace SendMailApp
                 msg.Subject = tbTitle.Text;
                 msg.Body = tbBody.Text;
 
+                foreach (var item in addfile.Items)
+                {
+                    msg.Attachments.Add(new Attachment(item.ToString()));
+                }
+
                 sc.Host = "smtp.gmail.com";
                 sc.Port = 587;
                 sc.EnableSsl = true;
