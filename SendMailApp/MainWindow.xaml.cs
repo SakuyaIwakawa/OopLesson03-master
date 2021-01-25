@@ -45,36 +45,68 @@ namespace SendMailApp
 
         private void btOk_Click(object sender, RoutedEventArgs e)
         {
+            Config cf = Config.GetInstance();
             try
             {
-                MailMessage msg = new MailMessage("ojsinfosys01@gmail.com", tbTo.Text);
+                MailMessage msg = new MailMessage(cf.MailAddress, tbTo.Text);
 
-                if(tbCc.Text != "")
-                msg.CC.Add(tbCc.Text);
-
-                if(tbBcc.Text != "")
-                msg.Bcc.Add(tbBcc.Text);
+                if (tbCc.Text != "")
+                {
+                    msg.CC.Add(tbCc.Text);
+                }
+                if (tbBcc.Text != "")
+                {
+                    msg.Bcc.Add(tbBcc.Text);
+                }
 
                 msg.Subject = tbTitle.Text;
                 msg.Body = tbBody.Text;
 
-                foreach (var item in addfile.Items)
+                sc.Host = cf.Smtp;
+                sc.Port = cf.Port;
+                sc.EnableSsl = cf.Ssl;
+                sc.Credentials = new NetworkCredential(cf.MailAddress, cf.PassWord);
+
+
+                try
                 {
-                    msg.Attachments.Add(new Attachment(item.ToString()));
+                    foreach (var item in addfile.SelectedItems)
+                    {
+                        msg.Attachments.Add(new Attachment(item.ToString()));
+                    };
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
 
-                sc.Host = "smtp.gmail.com";
-                sc.Port = 587;
-                sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential("ojsinfosys01@gmail.com", "ojsInfosys2020");
+                if (msg.Body == "" || msg.Subject == "")
+                {
+                    MessageBoxResult result = MessageBox.Show("本文か件名が入力されていません。このまま送信しますか？",
+                                                      "エラー", MessageBoxButton.OKCancel);
+                    if (result == MessageBoxResult.OK)
+                    {
+                        sc.SendMailAsync(msg);
+                    }
+                    else if (result == MessageBoxResult.Cancel)
+                    {
 
-                sc.SendMailAsync(msg);
-                //sc.Send(msg);
+                    }
+                    else
+                    {
+                       
+                    }
+                }
+                else
+                {
+                    sc.SendMailAsync(msg);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
 
         private void btCancel_Click(object sender, RoutedEventArgs e)
